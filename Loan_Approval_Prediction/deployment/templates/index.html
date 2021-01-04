@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Loan Approval Prediction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+  <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 2.0;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 {
+    background-color:green; /* Green */
+    color: black;
+    text-align: left;
+
+  }
+  .bg-2 {
+    background-color: #474e5d; /* Dark Blue */
+    color: #ffffff;
+  }
+  .bg-3 {
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 {
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default bg-4">
+  <div class="container">
+    <div class="navbar-header">
+
+      <h2>Loan Approval Prediction</h2>
+    </div>
+
+  </div>
+</nav>
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8"><p>This page shows whether a loan application with the following data will be approved or not.</p></div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+  <form action="{{ url_for('predict')}}" method="post">
+    <div class="form-group">
+        <label for="Gender_Male">Gender</label>
+        <select name="Gender_Male" id="Gender_Male">
+        <option value="1">Male</option>
+        <option value="0">Female</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Married_Yes">Married</label>
+        <select name="Married_Yes" id="Married_Yes">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Education_Not_Graduate">Graduation</label>
+        <select name="Education_Not_Graduate" id="Education_Not_Graduate">
+        <option value="0">Yes</option>
+        <option value="1">No</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Self_Employed">Self Employed</label>
+        <select name="Self_Employed" id="Self_Employed">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Property_Area_Urban">Property Area</label>
+        <select name="Property_Area_Urban" id="Property_Area_Urban">
+        <option value="1">Urban</option>
+        <option value="0">Semi Urban</option>
+        <option value="0">Rural</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Credit_History">Credit History</label>
+        <select name="Credit_History" id="Credit_History">
+        <option value="1">1</option>
+        <option value="0">0</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="applicant_income">Applicant Income</label>
+      <input type="text" class="form-control" name="applicant_income" id="applicant_income" placeholder="e.g 10000" required="required">
+    </div>
+    <div class="form-group">
+      <label for="coapplicant_income">Co-applicant Income</label>
+      <input type="text" class="form-control"  name="coapplicant_income" id="coapplicant_income" placeholder="e.g 20000" required="required">
+    </div>
+    <div class="form-group">
+      <label for="Dependents">Dependents</label>
+      <input type="text" class="form-control" name="Dependents" id="Dependents" placeholder=" e.g 1 " required="required">
+    </div>
+    <div class="form-group">
+      <label for="Loan_Amount_Term_Years">Loan Amount Term(Years)</label>
+      <input type="text" class="form-control" name="Loan_Amount_Term_Years" id="Loan_Amount_Term_Years" placeholder=" number of years to repay the loan amount e.g 10 " required="required">
+    </div>
+    <div class="form-group">
+        <label for="LoanAmount">Loan amount required</label>
+        <input type="text" class="form-control" name="LoanAmount" id="LoanAmount" placeholder=" e.g 100 " required="required">
+    </div>
+
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+    <button type="submit" class="btn btn-primary btn-block btn-large">Predict Sales</button>
+  </form>
+  {{prediction_text}}
+</div>
+<div class="col-md-4"></div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p class='footer-description'>Done by SAIVISHAL GOPATHI</p>
+  <div class="contact" >
+    <a target="_blank" href="https://github.com/Saivishalg98/Machine_learning_projects/tree/main/Loan_Approval_Prediction"><i class="fab fa-github fa-lg contact-icon" style="color:blanchedalmond !important"></i></a>
+    <a target="_blank" href=""><i class="fab fa-linkedin fa-lg contact-icon" style="color:blanchedalmond !important"></i></a>
+</div>
+
+
+</footer>
+
+</body>
+</html>
